@@ -17,6 +17,12 @@ module FakeWeb
         FakeWeb::Responder.new(method, uri, option, option[:times])
       end
     end
+    
+    def unregister_uri(method, uri)
+      deleted = uri_map[uri = normalize_uri(uri)].reject{|_method, responder| method == _method }
+      uri_map.delete uri if uri_map[uri].empty?
+      !!deleted
+    end
 
     def registered_uri?(method, uri)
       !responders_for(method, uri).empty?

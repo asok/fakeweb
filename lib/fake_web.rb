@@ -159,6 +159,10 @@ module FakeWeb
     end
   end
 
+  def self.unregister_uri(method, uri)
+    Registry.instance.unregister_uri(method, uri)
+  end
+
   # call-seq:
   #   FakeWeb.response_for(method, uri)
   #
